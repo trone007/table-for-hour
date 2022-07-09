@@ -305,3 +305,26 @@ body::before {
 .vm--modal {
     color: black;
 }
+
+.table.--rotate-180 {
+    transform: rotate(180deg);
+}
+
+.table.--rotate-180 {
+    transform: rotate(180deg);
+}
+
+.vue-booking-date {
+    width: 100%;
+    margin: 10px 0;
+    background-color: rgba(3,3,27,.1);
+    border: none;
+    border-radius: 0;
+    box-sizing: border-box;
+    display: block;
+    font-family: Montserrat,sans-serif;
+    font-size: 15px;
+    height: 47px;
+    outline: none;
+    padding: 0 13px;
+}

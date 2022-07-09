@@ -4,21 +4,25 @@
 		<div v-bind:style="{background: '#ffffff', position: 'relative', width: roomParams.width + 'px', height: roomParams.length + 'px' }">
 			<div v-for="(desk, m) in roomParams.desks" :key="m" class="row">
 				<Table
+            :id="desk.id"
 						:x="desk.x"
 						:y="desk.y"
 						:rotation="desk.rotation"
 						:length="desk.length"
 						:width="desk.width"
+            :occupied="!!desk.bookingStart"
 						@click="onTableClick"
 				/>
 			</div>
 		</div>
+		<v-dialog />
 	</div>
 </template>
 
 <script>
 import axios from 'axios'
 import Table from "./Table";
+
 export default {
 	components: {Table},
 	data() {
@@ -37,7 +41,30 @@ export default {
 	},
   methods: {
 	  onTableClick() {
-			console.log('onTableClick: ');
+		  this.$modal.show('dialog', {
+			  title: 'The standard Lorem Ipsum passage',
+			  text: 'Lorem ipsum dolor sit amet, ...',
+			  buttons: [
+				  {
+					  title: 'Cancel',
+					  handler: () => {
+						  this.$modal.hide('dialog')
+					  }
+				  },
+				  {
+					  title: 'Like',
+					  handler: () => {
+						  alert('Like action')
+					  }
+				  },
+				  {
+					  title: 'Repost',
+					  handler: () => {
+						  alert('Repost action')
+					  }
+				  }
+			  ]
+		  })
 	  },
     loadRoom(roomId, startDate)
     {

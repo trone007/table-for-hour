@@ -19,6 +19,7 @@
         "build": "encore production --progress"
     },
     "dependencies": {
-        "axios": "^0.27.2"
+        "axios": "^0.27.2",
+        "vue-js-modal": "^2.0.1"
     }
 }

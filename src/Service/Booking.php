@@ -4,5 +4,5 @@ namespace App\Service;
 
 interface Booking
 {
-	public function getDesksByRoomAndDate(string $roomId, \DateTime $dateStart, ?\DateTime $dateEnd = null): array;
+	public function getDesksByRoomAndDate(int $roomId, \DateTime $dateStart, ?\DateTime $dateEnd = null): array;
 }

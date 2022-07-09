@@ -41,6 +41,11 @@ class Room
      */
     private $desks;
 
+    /**
+     * @ORM\Column(type="string", length=2000, nullable=true)
+     */
+    private $background;
+
     public function __construct()
     {
         $this->desks = new ArrayCollection();
@@ -113,6 +118,18 @@ class Room
                 $desk->setRoom(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getBackground(): ?string
+    {
+        return $this->background;
+    }
+
+    public function setBackground(?string $background): self
+    {
+        $this->background = $background;
 
         return $this;
     }

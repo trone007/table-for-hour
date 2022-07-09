@@ -2,12 +2,18 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  */
+#[ApiResource(
+    collectionOperations: ['get' => ['normalization_context' => ['groups' => 'user:list']]],
+//    itemOperations: ['get' => ['normalization_context' => ['groups' => 'user:item']]],
+    paginationEnabled: true,
+)]
 class User
 {
     /**

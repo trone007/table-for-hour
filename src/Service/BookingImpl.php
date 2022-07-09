@@ -5,6 +5,7 @@ namespace App\Service;
 use App\Entity\BookingLog;
 use App\Entity\Desk;
 use App\Entity\Room;
+use App\Entity\User;
 use Doctrine\ORM;
 use Doctrine\ORM\Query\Expr\Join;
 use Symfony\Component\Security\Core\Security;
@@ -55,7 +56,7 @@ class BookingImpl implements Booking
 		];
 	}
 
-	public function bookDesk($deskId, \DateTime $dateStart, ?\DateTime $dateEnd = null): ?BookingLog
+	public function bookDesk(\Symfony\Component\Security\Core\User\UserInterface $user, int $deskId, \DateTime $dateStart, ?\DateTime $dateEnd = null): ?BookingLog
 	{
 		$desk = $this->entityManager->getRepository(Desk::class)->find($deskId);
 
@@ -64,11 +65,12 @@ class BookingImpl implements Booking
 			return null;
 		}
 
+//		$user = $this->entityManager->getRepository(User::class)->find($userId);
 		$bookingLog = (new BookingLog())
 			->setDesk($desk)
 			->setDateStart($dateStart)
 			->setDateEnd($dateEnd)
-			->setUser($this->security->getUser());
+			->setUser($user);
 
 		$this->entityManager->persist($bookingLog);
 		$this->entityManager->flush();
@@ -105,7 +107,7 @@ class BookingImpl implements Booking
 				Join::WITH,
 				'b.dateStart <= :dateStart AND (b.dateEnd IS NULL OR b.dateEnd >= :dateStart)')
 			->leftJoin('b.user', 'u')
-			->where('d = :des')
+			->where('d = :desk')
 			->setParameter('desk', $desk)
 			->setParameter('dateStart', $dateStart)
 			->getQuery()

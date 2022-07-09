@@ -7,7 +7,6 @@ use App\Repository\DeskRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=DeskRepository::class)
@@ -41,11 +40,8 @@ class Desk
      */
     private $room;
 
-	#[Groups(["get", "put"])]
-	private $roomId;
-
 	/**
-	 * @ORM\OneToMany(targetEntity=BookingLog::class, mappedBy="user")
+	 * @ORM\OneToMany(targetEntity=BookingLog::class, mappedBy="desk")
 	 */
 	private $bookingLogs;
 
@@ -167,22 +163,4 @@ class Desk
 
         return $this;
     }
-
-	/**
-	 * @return mixed
-	 */
-	public function getRoomId()
-	{
-		return $this->roomId;
-	}
-
-	/**
-	 * @param mixed $roomId
-	 */
-	public function setRoomId($roomId): void
-	{
-		$this->roomId = $roomId;
-	}
-
-
 }

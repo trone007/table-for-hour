@@ -9,8 +9,8 @@
 {% block body %}
     <main class="main">
         <h1 class="title-1">Booking a workplace</h1>
-        <form action="{{ path('app_login') }}" class="form">
-            <input type="text" placeholder="Username" name="_username" class="input">
+        <form action="{{ path('app_login') }}" method="post" class="form">
+            <input type="text" placeholder="Username" name="_username" class="input" value="{{ last_username }}">
             <input type="hidden" id="password" name="_password" value="pass"/>
 
             <input type="submit" class="input-btn" placeholder="Log in">

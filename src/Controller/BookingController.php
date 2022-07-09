@@ -8,10 +8,12 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 class BookingController extends AbstractController
 {
 	private Booking $bookingService;
+
 
 	public function __construct(Booking $bookingService)
 	{
@@ -30,11 +32,15 @@ class BookingController extends AbstractController
 	/**
 	 * @Route ("/api/booking/book", name="booking_book_desk", methods={"POST"})
 	 */
-	public function bookDesk(Request $request): JsonResponse
+	public function bookDesk(Request $request, Security $security): JsonResponse
 	{
 		$deskId = $request->request->getInt('deskId');
 		$dateStart = $request->request->get('dateStart');
 		$dateEnd = $request->request->get('dateEnd');
+
+		if ($security->getUser() === null) {
+			return $this->json(['error' => 'You are not logged in']);
+		}
 
 		if ($dateStart)
 		{
@@ -44,7 +50,7 @@ class BookingController extends AbstractController
 		{
 			$dateEnd = new \DateTime($dateEnd);
 		}
-		$booking = $this->bookingService->bookDesk($deskId, $dateStart, $dateEnd);
+		$booking = $this->bookingService->bookDesk($security->getUser(), $deskId, $dateStart, $dateEnd);
 
 		return $this->json($booking);
 	}

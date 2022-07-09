@@ -283,3 +283,7 @@ body::before {
 .table:hover * {
     fill: #00B2FF;
 }
+
+.vm--modal {
+    color: black;
+}

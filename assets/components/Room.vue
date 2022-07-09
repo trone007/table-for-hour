@@ -4,7 +4,7 @@
 		<div v-bind:style="{background: '#ffffff', position: 'relative', width: roomParams.width + 'px', height: roomParams.length + 'px' }">
 			<div v-for="(desk, m) in roomParams.desks" :key="m" class="row">
 				<Table
-            :id="desk.id"
+            :desk="desk"
 						:x="desk.x"
 						:y="desk.y"
 						:rotation="desk.rotation"
@@ -40,25 +40,25 @@ export default {
     this.loadRoom(1, '2022-07-09');
 	},
   methods: {
-	  onTableClick() {
+	  onTableClick(desk) {
 		  this.$modal.show('dialog', {
-			  title: 'The standard Lorem Ipsum passage',
-			  text: 'Lorem ipsum dolor sit amet, ...',
+			  title: 'Информация о столе',
+			  text: 'Стол номер: ' + desk.id + (desk.dateEnd ?  'Забронирован до:' +desk.dateEnd : ''),
 			  buttons: [
 				  {
-					  title: 'Cancel',
+					  title: 'Закрыть',
 					  handler: () => {
 						  this.$modal.hide('dialog')
 					  }
 				  },
 				  {
-					  title: 'Like',
+					  title: 'Забронировать',
 					  handler: () => {
 						  alert('Like action')
 					  }
 				  },
 				  {
-					  title: 'Repost',
+					  title: 'Отзывы',
 					  handler: () => {
 						  alert('Repost action')
 					  }

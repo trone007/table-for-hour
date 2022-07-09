@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
 	data() {
 		return {
@@ -23,11 +24,24 @@ export default {
 		Object.values(this.roomParams).forEach((value) => {
 			console.log(value);
 			});
-		let el = document.querySelector("div[data-words]");
-		let mywords = el.dataset.words.split(",");
-		
-		this.words.push.apply(this.words, mywords);
-	}
+
+    this.loadRoom(1, '2022-07-09');
+	},
+  methods: {
+    loadRoom: (roomId, startDate) =>
+    {
+      axios.get('/api/booking/' + roomId + '/' + startDate)
+      .then(response =>
+      {
+        roomParams = response.data;
+        console.log(vm.roomParams)
+      })
+      .catch(error =>
+      {
+        console.log(error);
+      });
+    }
+  }
 };
 </script>
 

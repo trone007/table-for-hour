@@ -34,7 +34,7 @@ class BookingImpl implements Booking
 			->entityManager
 			->getRepository(Desk::class)
 			->createQueryBuilder('d')
-			->select('d.id', 'd.description', 'd.x', 'd.y', 'd.rotation', 'd.width', 'd.length', 'b.dateStart bookingStart', 'b.dateEnd bookingEnd', 'u.id bookingUser')
+			->select('d.id', 'd.description', 'd.x', 'd.y', 'd.rotation', 'd.width', 'd.length', 'b.dateStart bookingStart', 'b.dateEnd bookingEnd', 'u.id bookingUser', 'u.first_name bookingUserName')
 			->leftJoin('d.bookingLogs',
 				'b',
 				Join::WITH,

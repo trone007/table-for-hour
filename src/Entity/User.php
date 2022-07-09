@@ -7,16 +7,18 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @method string getUserIdentifier()
  */
 #[ApiResource(
     collectionOperations: ['get' => ['normalization_context' => ['groups' => 'user:list']]],
 //    itemOperations: ['get' => ['normalization_context' => ['groups' => 'user:item']]],
     paginationEnabled: true,
 )]
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id
@@ -120,4 +122,29 @@ class User
 
         return $this;
     }
+
+	public function getRoles()
+	{
+		return ['ROLE_USER'];
+	}
+
+	public function getPassword()
+	{
+		return 'pass';
+	}
+
+	public function getSalt()
+	{
+		// TODO: Implement getSalt() method.
+	}
+
+	public function eraseCredentials()
+	{
+		// TODO: Implement eraseCredentials() method.
+	}
+
+	public function getUsername()
+	{
+		return $this->login;
+	}
 }

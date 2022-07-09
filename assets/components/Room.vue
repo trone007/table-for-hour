@@ -50,9 +50,9 @@ export default {
 			  text: '' +
             'Стол номер: ' + desk.id + (desk.dateEnd ?  'Забронирован до:' +desk.dateEnd : '') +
             ( desk.bookingUser ? '<br/>' +
-            'Кто забронировал: ' + '<b>' + (desk.bookingUserName || desk.bookingUser) + '</b>' : '' )+
+            'Кто забронировал: ' + '<b>' + (desk.bookingUserName || desk.bookingUser) + '</b>' :
             '<br/>' +
-            'Выберите дату бронирования: <input type="date" data-desk-id="'+desk.id+'" class="vue-booking-date">'
+            'Выберите дату бронирования: <input type="date" data-desk-id="'+desk.id+'" class="vue-booking-date">')
         ,
 			  buttons: [
 				  {

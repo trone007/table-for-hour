@@ -33,7 +33,12 @@ class Desk
      */
     private $room;
 
-    /**
+	/**
+	 * @ORM\OneToMany(targetEntity=BookingLog::class, mappedBy="user")
+	 */
+	private $bookingLogs;
+
+	/**
      * @ORM\Column(type="integer")
      */
     private $x;
@@ -60,7 +65,7 @@ class Desk
 
     public function __construct()
     {
-        $this->user = new ArrayCollection();
+		$this->bookingLogs = new ArrayCollection();
     }
 
     public function getId(): ?int

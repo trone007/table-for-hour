@@ -20,7 +20,7 @@ class BookingLog
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Desk::class, inversedBy="user")
+     * @ORM\ManyToOne(targetEntity=Desk::class, inversedBy="bookingLogs")
      * @ORM\JoinColumn(nullable=false)
      */
     private $desk;

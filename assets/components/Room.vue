@@ -1,17 +1,29 @@
 <template>
 	<div>
 		<h2 class="center">My Application</h2>
+		<div v-bind:style="{background: '#ffffff', position: 'relative', width: roomParams.width + 'px', height: roomParams.length + 'px' }">VVVVVV</div>
 		<div v-text="message"></div>
 		{{ message }}
 		<ul>
-			<li :key="word.id" v-for="word in words">{{ word }}</li>
+			<div v-for="(desk, m) in roomParams.desks" :key="m" class="row">
+				<Table
+						:x="desk.x"
+						:y="desk.y"
+						:rotation="desk.rotation"
+						:length="desk.length"
+						:width="desk.width"
+						@click="onTableClick"
+				/>
+			</div>
 		</ul>
 	</div>
 </template>
 
 <script>
 import axios from 'axios'
+import Table from "./Table";
 export default {
+	components: {Table},
 	data() {
 		return {
 			message: "A list of words",
@@ -27,12 +39,17 @@ export default {
     this.loadRoom(1, '2022-07-09');
 	},
   methods: {
+	  onTableClick() {
+			console.log('onTableClick: ');
+	  },
     loadRoom(roomId, startDate)
     {
       axios.get('/api/booking/' + roomId + '/' + startDate)
       .then(response =>
       {
         this.roomParams = response.data;
+	      console.log('this.roomParams: ', this.roomParams);
+	
       })
       .catch(error =>
       {

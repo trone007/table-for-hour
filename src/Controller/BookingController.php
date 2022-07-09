@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\BookingLog;
+use App\Entity\Desk;
 use App\Service\Booking;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -34,9 +35,10 @@ class BookingController extends AbstractController
 	 */
 	public function bookDesk(Request $request, Security $security): JsonResponse
 	{
-		$deskId = $request->request->getInt('deskId');
-		$dateStart = $request->request->get('dateStart');
-		$dateEnd = $request->request->get('dateEnd');
+		$content = json_decode($request->getContent(), true);
+		$deskId = $content['deskId'];
+		$dateStart = $content['dateStart'];
+		$dateEnd = $content['dateEnd'];
 
 		if ($security->getUser() === null) {
 			return $this->json(['error' => 'You are not logged in']);
@@ -75,5 +77,13 @@ class BookingController extends AbstractController
 		$dateEnd = $dateEnd ? new \DateTime($dateEnd) : new \DateTime();
 
 		return $this->json($this->bookingService->completeBooking($bookingLog, $dateEnd));
+	}
+
+	/**
+	 * @Route ("/api/booking/{desk}/can-book/{dateStart}", name="can_book_desk", methods={"GET"})
+	 */
+	public function canBookDesk(Desk $desk, \DateTime $dateStart, ?\DateTime $dateEnd = null): JsonResponse
+	{
+		return $this->json(['canBook' => $this->bookingService->canBookDesk($desk, $dateStart, $dateEnd)]);
 	}
 }

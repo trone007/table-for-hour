@@ -1,20 +1,25 @@
 <template>
 	<div>
     <Header></Header>
-		<div v-bind:style="{background: '#ffffff', position: 'relative', width: roomParams.width + 'px', height: roomParams.length + 'px' }">
-			<div v-for="(desk, m) in roomParams.desks" :key="m" class="row">
-				<Table
-            :desk="desk"
-						:x="desk.x"
-						:y="desk.y"
-						:rotation="desk.rotation"
-						:length="desk.length"
-						:width="desk.width"
-            :occupied="!!desk.bookingStart"
-						@click="onTableClick"
-				/>
-			</div>
-		</div>
+    <div class="svg-container">
+      <div class="svg-box">
+        <div c v-bind:style="{background: '#ffffff', position: 'relative', width: roomParams.width + 'px', height: roomParams.length + 'px' }">
+          <div v-for="(desk, m) in roomParams.desks" :key="m" class="row">
+            <Table
+                :desk="desk"
+                :x="desk.x"
+                :y="desk.y"
+                :rotation="desk.rotation"
+                :length="desk.length"
+                :width="desk.width"
+                :occupied="!!desk.bookingStart"
+                @click="onTableClick"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
 		<v-dialog />
 	</div>
 </template>

@@ -15,7 +15,6 @@ class BookingController extends AbstractController
 {
 	private Booking $bookingService;
 
-
 	public function __construct(Booking $bookingService)
 	{
 		$this->bookingService = $bookingService;
@@ -59,14 +58,22 @@ class BookingController extends AbstractController
 	/**
 	 * @Route ("/api/booking/{bookingLog}/complete", name="booking_complete_desk", methods={"POST"})
 	 */
-	public function completeBooking(Request $request, BookingLog $bookingLog): JsonResponse
+	public function completeBooking(Request $request, BookingLog $bookingLog, Security $security): JsonResponse
 	{
 		$dateEnd = $request->request->get('dateEnd');
-
-		if ($dateEnd)
-		{
-			$dateEnd = new \DateTime($dateEnd);
+		$secUser = $security->getUser();
+		if (!$secUser) {
+			return $this->json(['error' => 'You are not logged in']);
 		}
+		if (
+			$security->getUser()->getId() != $bookingLog->getUser()->getId()
+			&& !$security->isGranted('ROLE_ADMIN')
+		) {
+			return $this->json(['error' => 'You are not authorized to perform the operation']);
+		}
+
+		$dateEnd = $dateEnd ? new \DateTime($dateEnd) : new \DateTime();
+
 		return $this->json($this->bookingService->completeBooking($bookingLog, $dateEnd));
 	}
 }

@@ -91,7 +91,6 @@ class BookingImpl implements Booking
 
 	private function canBookDesk(Desk $desk, \DateTime $dateStart, ?\DateTime $dateEnd = null): bool
 	{
-
 		if (!$this->security->getUser())
 		{
 			return false;

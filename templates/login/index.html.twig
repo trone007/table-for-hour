@@ -6,7 +6,7 @@
         <form action="{{ path('app_login') }}" method="post" class="form">
             <input type="text" placeholder="Username" name="_username" class="input">
             <input type="hidden" id="password" name="_password" value="pass">
-
+            <input type="hidden" name="_target_path" value="{{ path('room') }}"/>
             <input type="submit" class="input-btn" placeholder="Log in">
         </form>
     </main>

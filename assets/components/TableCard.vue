@@ -1,60 +1,44 @@
 <template>
-	<transition name="modal">
-		<div class="modal-mask">
-			<div class="modal-wrapper">
-				<div class="modal-container">
-					<div class="modal-header">
-						<slot name="header">
-							default header: {{ id }}}
-						</slot>
-					</div>
-					<div class="modal-body">
-						<slot name="body">
-							default body
-						</slot>
-					</div>
-					
-					<div class="modal-footer">
-						<slot name="footer">
-							default footer
-							<button class="modal-default-button" @click="$emit('close')">
-								OK
-							</button>
-						</slot>
-					</div>
-				</div>
-			</div>
-		</div>
-	</transition>
+	<div>
+		<h1>Информация о столе: {{ data.id}} </h1>
+		<h2>Интересная информация: {{ data.description }} </h2>
+		<h2>Отзывы: скоро будет </h2>
+		<h2>Владелец: скоро будет </h2>
+	</div>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
 	props: {
-			id: Number,
-			width: Number,
-			length: Number,
-			x: Number,
-			y: Number,
-			rotation: Number
 		},
 	data() {
 		return {
+			id: 0,
+			data: {}
 		};
 	},
+	
 	mounted() {
-		console.log('table Card');
+		let el = document.querySelector("div[data-id]");
+		this.id = el.dataset.id;
+		this.load(this.id);
 	},
   methods: {
-		show: function () {
-			console.log('table Card');
-		}
+	  load(deskId)
+	  {
+		  axios.get('/api/desks/' + deskId)
+				  .then(response =>
+				  {
+					  this.data = response.data;
+					  console.log('this.roomParams: ', this.data);
+				  })
+				  .catch(error =>
+				  {
+					  console.log(error);
+				  });
+	  },
   }
 };
 </script>
-
-<style>
-.center {
-	text-align: center;
-}
-</style>

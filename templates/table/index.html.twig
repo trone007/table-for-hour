@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Table page{% endblock %}
+
+{% block body %}
+    <div ref="table" data-id="{{ id }}"></div>
+    <div id="app">
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ encore_entry_script_tags('table') }}
+{% endblock %}

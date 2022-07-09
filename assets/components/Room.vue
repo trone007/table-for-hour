@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<h2 class="center">My Application</h2>
+    <Header></Header>
 		<div v-bind:style="{background: '#ffffff', position: 'relative', width: roomParams.width + 'px', height: roomParams.length + 'px' }">
 			<div v-for="(desk, m) in roomParams.desks" :key="m" class="row">
 				<Table
@@ -22,9 +22,10 @@
 <script>
 import axios from 'axios'
 import Table from "./Table";
+import Header from "./Header";
 
 export default {
-	components: {Table},
+	components: {Table, Header},
 	data() {
 		return {
 			message: "A list of words",

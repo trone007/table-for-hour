@@ -35,22 +35,23 @@ export default {
 	data() {
 		return {
 			message: "A list of words",
+      bookingDate: "",
 			words: [],
 			roomParams: []
 		};
 	},
 	mounted() {
-		console.log('sds');
-		Object.values(this.roomParams).forEach((value) => {
-			console.log(value);
-			});
     this.loadRoom(1, '2022-07-09');
 	},
   methods: {
 	  onTableClick(desk) {
 		  this.$modal.show('dialog', {
 			  title: 'Информация о столе',
-			  text: 'Стол номер: ' + desk.id + (desk.dateEnd ?  'Забронирован до:' +desk.dateEnd : ''),
+			  text: '' +
+            'Стол номер: ' + desk.id + (desk.dateEnd ?  'Забронирован до:' +desk.dateEnd : '') +
+            '<br/>' +
+            'Выберите дату бронирования: <input type="date" data-desk-id="'+desk.id+'" class="vue-booking-date">'
+        ,
 			  buttons: [
 				  {
 					  title: 'Закрыть',
@@ -61,11 +62,24 @@ export default {
 				  {
 					  title: 'Забронировать',
 					  handler: () => {
-						  alert('Like action')
+              const dateEnd = document.querySelector('input.vue-booking-date[data-desk-id="'+desk.id+'"]').value;
+              axios.post('/api/booking/book', {
+                deskId: desk.id,
+                dateStart: dateEnd,
+                dateEnd: dateEnd,
+              })
+              .then(response =>
+              {
+                this.$modal.hide('dialog');
+              })
+              .catch(error =>
+              {
+                console.log(error);
+              });
 					  }
 				  },
 				  {
-					  title: 'Отзывы',
+					  title: 'Снять бронь',
 					  handler: () => {
 						  this.$modal.hide('dialog');
 						  window.location = '/reviews/' + desk.id;

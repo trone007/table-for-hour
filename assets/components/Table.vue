@@ -2,7 +2,7 @@
   <div @click="onClick()"
        v-bind:style="{background: '#000', position: 'absolute', width: width + 'px', height: length + 'px', top: y + 'px', left: x + 'px' }">
 
-    <svg width="110" height="127" viewBox="0 0 110 127" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg class="table" v-bind:class="{'--booked': occupied,  }" width="110" height="127" viewBox="0 0 110 127" fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect x="0.5" y="0.5" width="94" height="126" rx="0.5" fill="white" stroke="#666666"/>
       <path d="M30.433 104.087L16.933 80.7044C16.0514 79.1774 16.4512 77.2622 17.7988 76.204L34.7634 105.587C33.1732 106.225 31.3146 105.614 30.433 104.087Z" fill="white" stroke="#666666"/>
       <path d="M39.1649 115.211L11.1649 66.714C10.2833 65.187 10.6831 63.2718 12.0307 62.2136L43.4953 116.712C41.9051 117.35 40.0466 116.738 39.1649 115.211Z" fill="white" stroke="#666666"/>
@@ -50,7 +50,8 @@ export default {
     return {
       message: "A list of words",
       words: [],
-      roomParams: []
+      roomParams: [],
+
     };
   },
   mounted()

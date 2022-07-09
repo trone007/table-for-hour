@@ -128,9 +128,30 @@ class BookingImpl implements Booking
 	public function completeBooking(BookingLog $bookingLog, \DateTime $dateEnd): BookingLog
 	{
 		$bookingLog->setDateEnd($dateEnd);
+		$bookingLog->setDateStart($dateEnd);
 		$this->entityManager->persist($bookingLog);
 		$this->entityManager->flush();
 
 		return $bookingLog;
+	}
+
+	public function completeAllDeskBookings(Desk $desk): void
+	{
+		$bookings = $this
+			->entityManager
+			->getRepository(BookingLog::class)
+			->createQueryBuilder('b')
+			->select('b')
+			->where('b.desk = :desk')
+//			->andWhere('b.dateEnd >= :date')
+			->setParameter('desk', $desk)
+//			->setParameter('date', new \DateTime())
+			->getQuery()
+			->getResult();
+
+		foreach ($bookings as $booking)
+		{
+			$this->completeBooking($booking, (new \DateTime())->modify('-1 day'));
+		}
 	}
 }

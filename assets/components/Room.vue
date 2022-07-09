@@ -70,6 +70,7 @@ export default {
               })
               .then(response =>
               {
+                desk.bookingStart = dateEnd;
                 this.$modal.hide('dialog');
               })
               .catch(error =>
@@ -80,6 +81,21 @@ export default {
 				  },
 				  {
 					  title: 'Снять бронь',
+					  handler: () => {
+              axios.post('/api/booking/desk/' +desk.id+ '/complete')
+              .then(response =>
+              {
+                desk.bookingStart = null;
+                this.$modal.hide('dialog');
+              })
+              .catch(error =>
+              {
+                console.log(error);
+              });
+					  }
+				  },
+				  {
+					  title: 'Отзывы',
 					  handler: () => {
 						  this.$modal.hide('dialog');
 						  window.location = '/reviews/' + desk.id;

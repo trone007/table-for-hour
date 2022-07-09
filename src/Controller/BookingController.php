@@ -80,6 +80,26 @@ class BookingController extends AbstractController
 	}
 
 	/**
+	 * @Route ("/api/booking/desk/{desk}/complete", name="booking_complete_desk", methods={"POST"})
+	 */
+	public function completeDeskBooking(Request $request, Desk $desk, Security $security): JsonResponse
+	{
+		$dateEnd = $request->request->get('dateEnd');
+		$secUser = $security->getUser();
+		if (!$secUser) {
+			return $this->json(['error' => 'You are not logged in']);
+		}
+		if (
+			!$security->isGranted('ROLE_USER')
+		) {
+			return $this->json(['error' => 'You are not authorized to perform the operation']);
+		}
+
+		$this->bookingService->completeAllDeskBookings($desk);
+		return $this->json(['success' => true]);
+	}
+
+	/**
 	 * @Route ("/api/booking/{desk}/can-book/{dateStart}", name="can_book_desk", methods={"GET"})
 	 */
 	public function canBookDesk(Desk $desk, \DateTime $dateStart, ?\DateTime $dateEnd = null): JsonResponse

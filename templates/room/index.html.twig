@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Room page{% endblock %}
+
+{% block body %}
+
+    <div ref="words" data-words="{{ words|join(',') }}"></div>
+
+    <div id="app">
+
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ encore_entry_script_tags('room1') }}
+    {{ roomParams.id }}
+{% endblock %}

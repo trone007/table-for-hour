@@ -186,12 +186,11 @@ body::before {
     margin-left: 7px;
 }
 
-
 .popup-info {
     display: flex;
     position: absolute;
-    left: 50%;
-    top: 50%;
+    left: 40%;
+    top: 10%;
     background: #FFFFFF;
     box-shadow: 0 6px 21px rgba(83, 92, 105, 0.2);
     border-radius: 12px;
@@ -216,12 +215,14 @@ body::before {
     font-weight: 400;
     font-size: 18px;
     line-height: 21px;
+    margin-bottom: 15px;
 }
 
 .popup-desk {
     font-weight: 200;
     font-size: 14px;
     line-height: 17px;
+    margin-bottom: 10px;
 }
 
 .popup-tegs {
@@ -260,4 +261,25 @@ body::before {
 	font-size: 12px;
 	line-height: 14px;
 	color: #FFFFFF;
+}
+
+.popup-date.--booked {
+    background: #FF5752;
+}
+
+
+.table {
+    cursor: pointer;
+}
+
+.table * {
+    transition: .2s;
+}
+
+.table.--booked * {
+    fill: #FF5752;;
+}
+
+.table:hover * {
+    fill: #00B2FF;
 }

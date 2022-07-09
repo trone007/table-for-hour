@@ -27,13 +27,36 @@ export default {
     this.loadRoom(1, '2022-07-09');
 	},
   methods: {
-    loadRoom: function(roomId, startDate)
+    loadRoom(roomId, startDate)
     {
       axios.get('/api/booking/' + roomId + '/' + startDate)
       .then(response =>
       {
         this.roomParams = response.data;
-        console.log(this.roomParams)
+      })
+      .catch(error =>
+      {
+        console.log(error);
+      });
+    },
+    bookDesk(deskId, startDate, endDate)
+    {
+      axios.post('/api/booking/book', {deskId: deskId, dateStart: startDate, dateEnd: endDate})
+      .then(response =>
+      {
+        this.roomParams = response.data;
+      })
+      .catch(error =>
+      {
+        console.log(error);
+      });
+    },
+    completeBooking(bookId, endDate)
+    {
+      axios.post('/api/booking/'+bookId+'/complete', {dateEnd: endDate})
+      .then(response =>
+      {
+        this.roomParams = response.data;
       })
       .catch(error =>
       {

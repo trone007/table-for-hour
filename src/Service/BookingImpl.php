@@ -125,4 +125,13 @@ class BookingImpl implements Booking
 
 		return $canBook;
 	}
+
+	public function completeBooking(BookingLog $bookingLog, \DateTime $dateEnd): BookingLog
+	{
+		$bookingLog->setDateEnd($dateEnd);
+		$this->entityManager->persist($bookingLog);
+		$this->entityManager->flush();
+
+		return $bookingLog;
+	}
 }

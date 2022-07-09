@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\BookingLog;
 use App\Service\Booking;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -55,4 +56,17 @@ class BookingController extends AbstractController
 		return $this->json($booking);
 	}
 
+	/**
+	 * @Route ("/api/booking/{bookingLog}/complete", name="booking_complete_desk", methods={"POST"})
+	 */
+	public function completeBooking(Request $request, BookingLog $bookingLog): JsonResponse
+	{
+		$dateEnd = $request->request->get('dateEnd');
+
+		if ($dateEnd)
+		{
+			$dateEnd = new \DateTime($dateEnd);
+		}
+		return $this->json($this->bookingService->completeBooking($bookingLog, $dateEnd));
+	}
 }

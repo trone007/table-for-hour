@@ -192,11 +192,12 @@ body::before {
     left: 40%;
     top: 10%;
     background: #FFFFFF;
-    box-shadow: 0 6px 21px rgba(83, 92, 105, 0.2);
+    box-shadow: 0 6px 21px 0 rgba(83,92,105,.2);
     border-radius: 12px;
     box-sizing: border-box;
     padding: 10px;
     color: #333333;
+    z-index: 99;
 }
 
 .popup-img {
@@ -282,4 +283,21 @@ body::before {
 
 .table:hover * {
     fill: #00B2FF;
+}
+
+.svg-container {
+    box-sizing: border-box;
+    background-color: #fff;
+    padding: 40px 0;
+}
+
+.svg-box {
+    position: relative;
+    margin: 0 auto;
+    width: 1487px;
+    height: 1374px;
+    background-image: url('/assets/images/plan.svg');
+    /*background-size: cover;*/
+    background-repeat: no-repeat;
+    background-position: center;
 }

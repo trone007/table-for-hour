@@ -1,9 +1,10 @@
 <template>
 	<div>
-    <Header>Комната: {{ roomParams.name }}</Header>
+    <Header></Header>
+    <h2>Комната: {{ roomParams.name }}</h2>
     <div class="svg-container">
       <div class="svg-box">
-        <div c v-bind:style="{background: '#ffffff', position: 'relative', width: roomParams.width + 'px', height: roomParams.length + 'px' }">
+        <div v-bind:style="{position: 'relative', width: roomParams.width + 'px', height: roomParams.length + 'px' }">
           <div v-for="(desk, m) in roomParams.desks" :key="m" class="row">
             <Table
                 :desk="desk"

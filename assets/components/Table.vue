@@ -37,7 +37,7 @@ import axios from 'axios'
 
 export default {
   props: {
-    id: Number,
+    desk: Object,
     width: Number,
     length: Number,
     x: Number,
@@ -62,7 +62,7 @@ export default {
   methods: {
     onClick: function ()
     {
-      this.$emit('click', this.id);
+      this.$emit('click', this.desk);
     }
 
   }

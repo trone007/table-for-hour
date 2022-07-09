@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<h2 class="center">My Application</h2>
+		<h2 class="center">Комната: {{ roomParams.name }}</h2>
 		<div v-bind:style="{background: '#ffffff', position: 'relative', width: roomParams.width + 'px', height: roomParams.length + 'px' }">
 			<div v-for="(desk, m) in roomParams.desks" :key="m" class="row">
 				<Table

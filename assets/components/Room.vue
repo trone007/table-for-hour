@@ -4,11 +4,13 @@
 		<div v-bind:style="{background: '#ffffff', position: 'relative', width: roomParams.width + 'px', height: roomParams.length + 'px' }">
 			<div v-for="(desk, m) in roomParams.desks" :key="m" class="row">
 				<Table
+            :id="desk.id"
 						:x="desk.x"
 						:y="desk.y"
 						:rotation="desk.rotation"
 						:length="desk.length"
 						:width="desk.width"
+            :occupied="!!desk.bookingStart"
 						@click="onTableClick"
 				/>
 			</div>
@@ -36,8 +38,8 @@ export default {
     this.loadRoom(1, '2022-07-09');
 	},
   methods: {
-	  onTableClick() {
-			console.log('onTableClick: ');
+	  onTableClick(id) {
+			console.log('onTableClick: ', id);
 	  },
     loadRoom(roomId, startDate)
     {

@@ -42,7 +42,8 @@ export default {
     length: Number,
     x: Number,
     y: Number,
-    rotation: Number
+    rotation: Number,
+    occupied: Boolean
   },
   data()
   {
@@ -54,7 +55,8 @@ export default {
   },
   mounted()
   {
-    console.log('sds');
+    console.log('sds', this.id);
+    console.log('occ', this.occupied);
   },
   methods: {
     onClick: function ()

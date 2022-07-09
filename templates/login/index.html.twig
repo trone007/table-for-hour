@@ -1,23 +1,13 @@
 {% extends "base.html.twig" %}
 
-{% block header %}
-    <header class="header">
-        {#        <a class="link" href="#">Sign in</a>#}
-    </header>
-{% endblock %}
-
 {% block body %}
-    <main class="main">
-        <h1 class="title-1">Booking a workplace</h1>
+    <main class="main container">
+        <h1 class="title-1">Placebook</h1>
         <form action="{{ path('app_login') }}" method="post" class="form">
-            <input type="text" placeholder="Username" name="_username" class="input" value="{{ last_username }}">
-            <input type="hidden" id="password" name="_password" value="pass"/>
+            <input type="text" placeholder="Username" name="_username" class="input">
+            <input type="hidden" id="password" name="_password" value="pass">
 
             <input type="submit" class="input-btn" placeholder="Log in">
         </form>
     </main>
-{% endblock %}
-
-{% block footer %}
-    <footer class=""></footer>
 {% endblock %}

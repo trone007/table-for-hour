@@ -60,7 +60,8 @@ export default {
 				  {
 					  title: 'Отзывы',
 					  handler: () => {
-						  alert('Repost action')
+						  this.$modal.hide('dialog');
+						  window.location = '/reviews/' + desk.id;
 					  }
 				  }
 			  ]

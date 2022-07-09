@@ -2,17 +2,16 @@
 
 namespace App\Service;
 
-use App\Entity\BookingLog;
 use App\Entity\Desk;
 use App\Entity\Room;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM;
 use Doctrine\ORM\Query\Expr\Join;
 
 class BookingImpl implements Booking
 {
-	private EntityManager $entityManager;
+	private Orm\EntityManagerInterface $entityManager;
 
-	public function __construct(EntityManager $entityManager)
+	public function __construct(Orm\EntityManagerInterface $entityManager)
 	{
 		$this->entityManager = $entityManager;
 	}

@@ -14,11 +14,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 #[ApiResource(
 	itemOperations: [
-	'get',
-	'put' => [
-		'normalization_context' => ['groups' => ['put']],
-	],
-],)]
+               	'get',
+               	'put' => [
+               		'normalization_context' => ['groups' => ['put']],
+               	],
+               ],)]
 
 class Desk
 {
@@ -70,9 +70,15 @@ class Desk
      */
     private $length;
 
+    /**
+     * @ORM\OneToMany(targetEntity=DeskFeatures::class, mappedBy="desk")
+     */
+    private $deskFeatures;
+
     public function __construct()
     {
 		$this->bookingLogs = new ArrayCollection();
+        $this->deskFeatures = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -160,6 +166,36 @@ class Desk
     public function setLength(int $length): self
     {
         $this->length = $length;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, DeskFeatures>
+     */
+    public function getDeskFeatures(): Collection
+    {
+        return $this->deskFeatures;
+    }
+
+    public function addDeskFeature(DeskFeatures $deskFeature): self
+    {
+        if (!$this->deskFeatures->contains($deskFeature)) {
+            $this->deskFeatures[] = $deskFeature;
+            $deskFeature->setDesk($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDeskFeature(DeskFeatures $deskFeature): self
+    {
+        if ($this->deskFeatures->removeElement($deskFeature)) {
+            // set the owning side to null (unless already changed)
+            if ($deskFeature->getDesk() === $this) {
+                $deskFeature->setDesk(null);
+            }
+        }
 
         return $this;
     }

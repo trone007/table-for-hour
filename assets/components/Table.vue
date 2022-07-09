@@ -1,6 +1,5 @@
 <template>
-  <div @click="onClick()"
-       v-bind:style="{background: '#000', position: 'absolute', width: width + 'px', height: length + 'px', top: y + 'px', left: x + 'px' }">
+  <div @click="onClick()" :style="style">
 
     <svg class="table" v-bind:class="{'--booked': occupied,  }" width="110" height="127" viewBox="0 0 110 127" fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect x="0.5" y="0.5" width="94" height="126" rx="0.5" fill="white" stroke="#666666"/>
@@ -59,6 +58,21 @@ export default {
     console.log('sds', this.id);
     console.log('occ', this.occupied);
   },
+  computed: {
+    style () {
+      return {
+        background: '#000',
+        position: 'absolute',
+        width: this.width + 'px',
+        height: this.length + 'px',
+        top: this.y + 'px',
+        left: this.x + 'px',
+        transform: 'rotate(' + this.rotation + 'deg)',
+        transformOrigin: 'center center'
+      }
+    },
+  },
+
   methods: {
     onClick: function ()
     {

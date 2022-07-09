@@ -24,17 +24,16 @@ export default {
 		Object.values(this.roomParams).forEach((value) => {
 			console.log(value);
 			});
-
     this.loadRoom(1, '2022-07-09');
 	},
   methods: {
-    loadRoom: (roomId, startDate) =>
+    loadRoom: function(roomId, startDate)
     {
       axios.get('/api/booking/' + roomId + '/' + startDate)
       .then(response =>
       {
-        roomParams = response.data;
-        console.log(vm.roomParams)
+        this.roomParams = response.data;
+        console.log(this.roomParams)
       })
       .catch(error =>
       {

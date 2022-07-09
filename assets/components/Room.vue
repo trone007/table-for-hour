@@ -91,10 +91,10 @@ export default {
 					  }
 				  },
 				  {
-					  title: 'Отзывы',
+					  title: 'О столе',
 					  handler: () => {
 						  this.$modal.hide('dialog');
-						  window.location = '/reviews/' + desk.id;
+						  window.location = '/table/' + desk.id;
 					  }
 				  },
           {

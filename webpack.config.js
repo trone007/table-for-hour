@@ -22,6 +22,7 @@ Encore
      */
     .addEntry('app', './assets/app.js')
     .addEntry('room1', './assets/js/room.js')
+    .addEntry('table', './assets/js/table.js')
     .enableVueLoader()
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)

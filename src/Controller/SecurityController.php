@@ -3,20 +3,49 @@
 namespace App\Controller;
 
 
+use App\Entity\User;
+use App\Security\SecurityAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
+use Symfony\Component\Security\Http\Authenticator\FormLoginAuthenticator;
 
 class SecurityController extends AbstractController
 {
+
+	public function __construct(private FormLoginAuthenticator $authenticator)
+	{
+	}
+
 	#[Route('/login', name: 'app_login')]
-	public function index(AuthenticationUtils $authenticationUtils): Response
+	public function index(EntityManagerInterface $entityManager,
+		UserAuthenticatorInterface $authenticatorManager,
+		Request $request,
+		AuthenticationUtils $authenticationUtils): Response
 	{
 		$error = $authenticationUtils->getLastAuthenticationError();
 		$lastUsername = $authenticationUtils->getLastUsername();
+
+		if ($error) {
+			$user = new User();
+			$user->setLogin($lastUsername);
+			$user->setFirstName($lastUsername);
+			$user->setLastName($lastUsername);
+			$entityManager->persist($user);
+			$entityManager->flush();
+
+			$authenticatorManager->authenticateUser(
+				$user,
+				$this->authenticator,
+				$request
+			);
+
+			return $this->redirect('/');
+		}
 		return $this->render('login/index.html.twig', [
 			'last_username' => $lastUsername,
 			'error' => $error,

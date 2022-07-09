@@ -206,9 +206,9 @@ body::before {
     height: 120px;
     margin-right: 15px;
     flex-shrink: 0;
-    background: #000;
     border-radius: 10px;
     overflow: hidden;
+    background: url('/assets/images/office.png') center no-repeat;
 }
 
 .popup-title {
@@ -236,4 +236,28 @@ body::before {
     font-weight: 200;
     font-size: 14px;
     line-height: 17px;
+    margin-right: 5px;
+}
+
+.popup-content {
+    display: flex;
+}
+
+.popup-additional-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-left: 10px;
+}
+
+.popup-date {
+    background: #00B2FF;
+    border-radius: 100px;
+    box-sizing: border-box;
+    padding: 4px 8px;
+	font-weight: 500;
+	font-size: 12px;
+	line-height: 14px;
+	color: #FFFFFF;
 }

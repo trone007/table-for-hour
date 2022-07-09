@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -37,6 +39,16 @@ class User
      * @ORM\Column(type="string", length=255)
      */
     private $last_name;
+
+    /**
+     * @ORM\OneToMany(targetEntity=BookingLog::class, mappedBy="user")
+     */
+    private $bookingLogs;
+
+    public function __construct()
+    {
+        $this->bookingLogs = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -75,6 +87,36 @@ class User
     public function setLastName(string $last_name): self
     {
         $this->last_name = $last_name;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, BookingLog>
+     */
+    public function getBookingLogs(): Collection
+    {
+        return $this->bookingLogs;
+    }
+
+    public function addBookingLog(BookingLog $bookingLog): self
+    {
+        if (!$this->bookingLogs->contains($bookingLog)) {
+            $this->bookingLogs[] = $bookingLog;
+            $bookingLog->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBookingLog(BookingLog $bookingLog): self
+    {
+        if ($this->bookingLogs->removeElement($bookingLog)) {
+            // set the owning side to null (unless already changed)
+            if ($bookingLog->getUser() === $this) {
+                $bookingLog->setUser(null);
+            }
+        }
 
         return $this;
     }

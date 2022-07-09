@@ -15,12 +15,14 @@
 				/>
 			</div>
 		</div>
+		<v-dialog />
 	</div>
 </template>
 
 <script>
 import axios from 'axios'
 import Table from "./Table";
+
 export default {
 	components: {Table},
 	data() {
@@ -38,8 +40,31 @@ export default {
     this.loadRoom(1, '2022-07-09');
 	},
   methods: {
-	  onTableClick(id) {
-			console.log('onTableClick: ', id);
+	  onTableClick() {
+		  this.$modal.show('dialog', {
+			  title: 'The standard Lorem Ipsum passage',
+			  text: 'Lorem ipsum dolor sit amet, ...',
+			  buttons: [
+				  {
+					  title: 'Cancel',
+					  handler: () => {
+						  this.$modal.hide('dialog')
+					  }
+				  },
+				  {
+					  title: 'Like',
+					  handler: () => {
+						  alert('Like action')
+					  }
+				  },
+				  {
+					  title: 'Repost',
+					  handler: () => {
+						  alert('Repost action')
+					  }
+				  }
+			  ]
+		  })
 	  },
     loadRoom(roomId, startDate)
     {

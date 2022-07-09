@@ -7,12 +7,20 @@ use App\Repository\DeskRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=DeskRepository::class)
  * @ORM\Table(name="desk")
  */
-#[ApiResource]
+#[ApiResource(
+	itemOperations: [
+	'get',
+	'put' => [
+		'normalization_context' => ['groups' => ['put']],
+	],
+],)]
+
 class Desk
 {
     /**
@@ -32,6 +40,9 @@ class Desk
      * @ORM\JoinColumn(nullable=false)
      */
     private $room;
+
+	#[Groups(["get", "put"])]
+	private $roomId;
 
 	/**
 	 * @ORM\OneToMany(targetEntity=BookingLog::class, mappedBy="user")
@@ -156,4 +167,22 @@ class Desk
 
         return $this;
     }
+
+	/**
+	 * @return mixed
+	 */
+	public function getRoomId()
+	{
+		return $this->roomId;
+	}
+
+	/**
+	 * @param mixed $roomId
+	 */
+	public function setRoomId($roomId): void
+	{
+		$this->roomId = $roomId;
+	}
+
+
 }

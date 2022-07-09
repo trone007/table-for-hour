@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Service\Booking;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -25,4 +26,27 @@ class BookingController extends AbstractController
 
 		return $this->json($desks);
 	}
+
+	/**
+	 * @Route ("/api/booking/book", name="booking_book_desk", methods={"POST"})
+	 */
+	public function bookDesk(Request $request): JsonResponse
+	{
+		$deskId = $request->request->getInt('deskId');
+		$dateStart = $request->request->get('dateStart');
+		$dateEnd = $request->request->get('dateEnd');
+
+		if ($dateStart)
+		{
+			$dateStart = new \DateTime($dateStart);
+		}
+		if ($dateEnd)
+		{
+			$dateEnd = new \DateTime($dateEnd);
+		}
+		$booking = $this->bookingService->bookDesk($deskId, $dateStart, $dateEnd);
+
+		return $this->json($booking);
+	}
+
 }

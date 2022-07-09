@@ -54,12 +54,6 @@ export default {
         ,
 			  buttons: [
 				  {
-					  title: 'Закрыть',
-					  handler: () => {
-						  this.$modal.hide('dialog')
-					  }
-				  },
-				  {
 					  title: 'Забронировать',
 					  handler: () => {
               const dateEnd = document.querySelector('input.vue-booking-date[data-desk-id="'+desk.id+'"]').value;
@@ -100,7 +94,13 @@ export default {
 						  this.$modal.hide('dialog');
 						  window.location = '/reviews/' + desk.id;
 					  }
-				  }
+				  },
+          {
+            title: 'Закрыть',
+            handler: () => {
+              this.$modal.hide('dialog')
+            }
+          },
 			  ]
 		  })
 	  },

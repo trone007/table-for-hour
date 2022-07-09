@@ -1,24 +1,19 @@
 <template>
-	<div>
-		<h2 class="center">My Application</h2>
-		<div v-text="message"></div>
-		{{ message }}
-		<ul>
-			<li :key="word.id" v-for="word in words">{{ word }}</li>
-		</ul>
-	</div>
+		<div @click="onClick()"
+				v-bind:style="{background: '#000', position: 'absolute', width: width + 'px', height: length + 'px', top: y + 'px', left: x + 'px' }">XXXXX</div>
 </template>
 
 <script>
 import axios from 'axios'
 export default {
 	props: {
-				width: Number,
-				length: Number,
-				x: Number,
-				y: Number,
-				rotation: Number
-			},
+			id: Number,
+			width: Number,
+			length: Number,
+			x: Number,
+			y: Number,
+			rotation: Number
+		},
 	data() {
 		return {
 			message: "A list of words",
@@ -28,10 +23,11 @@ export default {
 	},
 	mounted() {
 		console.log('sds');
-		
-		this.x;
 	},
   methods: {
+		onClick: function () {
+			this.$emit('click', this.id);
+		}
  
   }
 };

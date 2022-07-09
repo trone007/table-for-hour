@@ -1,10 +1,7 @@
 <template>
 	<div>
 		<h2 class="center">My Application</h2>
-		<div v-bind:style="{background: '#ffffff', position: 'relative', width: roomParams.width + 'px', height: roomParams.length + 'px' }">VVVVVV</div>
-		<div v-text="message"></div>
-		{{ message }}
-		<ul>
+		<div v-bind:style="{background: '#ffffff', position: 'relative', width: roomParams.width + 'px', height: roomParams.length + 'px' }">
 			<div v-for="(desk, m) in roomParams.desks" :key="m" class="row">
 				<Table
 						:x="desk.x"
@@ -15,7 +12,7 @@
 						@click="onTableClick"
 				/>
 			</div>
-		</ul>
+		</div>
 	</div>
 </template>
 

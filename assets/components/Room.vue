@@ -48,7 +48,7 @@ export default {
 		  this.$modal.show('dialog', {
 			  title: 'Информация о столе',
 			  text: '' +
-            'Стол номер: ' + desk.id + (desk.dateEnd ?  'Забронирован до:' +desk.dateEnd : '') +
+            'Стол номер: ' + desk.id + (desk.bookingEnd ?  '<br>Забронирован до: <b>' + (new Date(desk.bookingEnd)).toDateString() + '</b>' : '') +
             ( desk.bookingUser ? '<br/>' +
             'Кто забронировал: ' + '<b>' + (desk.bookingUserName || desk.bookingUser) + '</b>' :
             '<br/>' +
